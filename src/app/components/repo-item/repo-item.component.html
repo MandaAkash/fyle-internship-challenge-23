@@ -1,0 +1,12 @@
+<div class="repo-item p-4 m-2 border border-gray-300 rounded flex flex-col">
+  <h3 class="text-lg font-semibold">{{ repo?.name }}</h3>
+  <div class="h-20"> <!-- Set a fixed height for the card body -->
+    <p class="text-gray-700 flex-grow" *ngIf="repo?.description; else noDescription">{{ repo?.description }}</p>
+    <ng-template #noDescription>
+      <p class="text-gray-700 flex-grow">There Is No Description To Show</p>
+    </ng-template>
+  </div>
+  <div class="flex flex-wrap gap-2 mt-2">
+    <span class="bg-blue-500 text-white px-2 py-1 rounded" *ngFor="let language of languages">{{ language?.name }}</span>
+  </div>
+</div>

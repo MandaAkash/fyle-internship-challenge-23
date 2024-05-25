@@ -1,0 +1,12 @@
+<div class="pagination-controls flex items-center justify-center mt-4">
+  <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="mr-4 px-2 py-1 rounded border">
+    <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+  </select>
+  <div class="pagination flex items-center">
+    <button (click)="onPageChange(currentPage - 1)" class="mr-2">&lt;&lt;</button>
+    <ng-container *ngFor="let page of totalPagesArray">
+      <button (click)="onPageChange(page)" [class.selected]="currentPage === page" class="mx-1 py-1 px-2 rounded-sm border bg-blue-500 text-white">{{ page }}</button>
+    </ng-container>
+    <button (click)="onPageChange(currentPage + 1)" class="ml-2">&gt;&gt;</button>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="border border-black mt-3 ml-3 mr-3 pb-3">
+  <!-- Container to handle the layout -->
+  <p *ngIf="!username" class="flex items-center justify-center mt-12">See Your Git Repositories Here By Searching 👆</p>
+  <div class="flex flex-col items-start mt-6 ml-14">
+    <!-- Container for avatar and login text -->
+    <div class="flex items-center" *ngIf="username && !loading && repositories.length > 0; else noRepositories"> 
+      <img *ngIf="avatarUrl" class="rounded-full w-24 h-24 border border-black border-2" [src]="avatarUrl" alt="Avatar">
+      <div class="mt-4 ml-4">
+        <h2 *ngIf="login" class="text-lg font-bold">{{ login }}</h2>
+        <p *ngIf="username" class="text-sm tracking-small">{{Bio}}</p>
+        <div class="mb-3">
+          <p *ngIf="username"><i class="fa-solid fa-location-pin mr-2 text-sm"></i>{{location}}</p>
+          <p *ngIf="twitterUserName" class="text-xs">Twitter:<a [href]="twitterUserName" target="_blank" class="text-xs font-bold">{{ twitterUserName }}</a></p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- HTML URL -->
+    <div class="mt-5 flex items-center ml-4" *ngIf="username && !loading && repositories.length > 0; else noRepositories">
+      <p *ngIf="htmlUrl">
+        <i class="fa-solid fa-link"></i><a [href]="htmlUrl" target="_blank" class="text-sm text-gray-600 hover:text-gray-800 font-bold">{{ htmlUrl }}</a>
+      </p>
+    </div>
+    
+    <!-- Repo list -->
+    <div *ngIf="username && !loading && repositories.length > 0; else skeletonLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full mt-4">
+      <div class="repo-item flex flex-col" *ngFor="let repo of repositories; let i = index">
+        <app-repo-item [repo]="repo"></app-repo-item>
+      </div>
+    </div>
+    
+    <ng-template #skeletonLoading>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full mt-4" *ngIf="username">
+        <div class="repo-item-skeleton" *ngFor="let item of getArray(10)">
+          <div class="repo-item-skeleton-avatar w-24 h-24 bg-gray-300 rounded-full mb-2"></div>
+          <div class="repo-item-skeleton-details">
+            <div class="repo-item-skeleton-title h-4 bg-gray-300 mb-2"></div>
+            <div class="repo-item-skeleton-description h-4 bg-gray-300"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #noRepositories>
+      <div class="flex items-center justify-center h-full w-full">
+        <p></p>
+      </div>
+    </ng-template>
+  </div>
+  
+  <!-- Pagination -->
+  <app-pagination *ngIf="username"
+    [totalCount]="totalCount" 
+    [pageSize]="pageSize" 
+    (pageChange)="onPageChange($event)" 
+    (pageSizeChange)="onPageSizeChange($event)">
+  </app-pagination>
+</div>
