@@ -17,7 +17,6 @@ export class PaginationComponent implements OnChanges {
   totalPagesArray: number[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
     if (changes['totalCount'] || changes['pageSize']) {
       this.calculateTotalPages();
       this.validateCurrentPage();

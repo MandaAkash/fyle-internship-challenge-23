@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError, timer } from 'rxjs';
 import { map, switchMap, shareReplay, catchError, throttleTime } from 'rxjs/operators';
-
+import { config } from '../configuration';
 @Injectable({
   providedIn: 'root'
 })
 export class GithubService {
   private authHeaders = new HttpHeaders({
-    'Authorization': 'token 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' // Use 'token' keyword
+    'Authorization': `token ${config.githubToken}`
   });
   public cache = new Map<string, Observable<any>>();
   private requestsQueue: Observable<any>[] = [];

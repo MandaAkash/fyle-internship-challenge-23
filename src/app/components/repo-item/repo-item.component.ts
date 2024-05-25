@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-
+import { config } from 'src/app/configuration';
 @Component({
   selector: 'app-repo-item',
   templateUrl: './repo-item.component.html',
@@ -9,7 +9,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 export class RepoItemComponent implements OnInit {
   @Input() repo: any;
   private authHeaders = new HttpHeaders({
-    'Authorization': 'token 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'
+    'Authorization': `token ${config.githubToken}`
   });
   languages: { name: string, value: number }[] = [];
 
